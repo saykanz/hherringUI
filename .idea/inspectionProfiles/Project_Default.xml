@@ -1,0 +1,25 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="pytest" />
+          <option value="requests" />
+          <option value="python-dotenv" />
+          <option value="jsonschema" />
+          <option value="pydantic" />
+          <option value="allure-pytest" />
+          <option value="pytest-html" />
+          <option value="pytest-xdist" />
+          <option value="pytest-rerunfailures" />
+          <option value="Faker" />
+          <option value="pytest-cov" />
+          <option value="ruff" />
+          <option value="black" />
+          <option value="pre-commit" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

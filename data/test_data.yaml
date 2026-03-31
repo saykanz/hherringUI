@@ -1,0 +1,39 @@
+puzzles:
+  - name: "看图推‘树’1"
+    difficulty: "Simple"
+    challenges: 278
+    completions: 3
+    button_text: "立即挑战"
+
+  - name: "五脏：民以食为天"
+    difficulty: "Simple"
+    challenges: 113
+    completions: 2
+    button_text: "立即挑战"
+
+  - name: "大河之谜"
+    difficulty: "Simple"
+    challenges: 137
+    completions: 5
+    button_text: "立即挑战"
+
+  - name: "六耳：简易囚徒生死局"
+    difficulty: "Simple"
+    challenges: 184
+    completions: 4
+    button_text: "立即挑战"
+
+  - name: "音乐会上的阴谋"
+    difficulty: "Medium"
+    challenges: 56
+    completions: 5
+    button_text: "立即挑战"
+
+articles:
+  - title: "刑事侦查学常识-死亡"
+    author: "星辰大海"
+    action: "阅读全文"
+
+  - title: "福尔摩斯推理法在现实中的应用"
+    author: "红鲱鱼"
+    action: "阅读全文"
