@@ -1,30 +1,30 @@
 puzzles:
   - name: "看图推‘树’1"
-    difficulty: "Simple"
+    difficulty: "简单"
     challenges: 278
     completions: 3
     button_text: "立即挑战"
 
   - name: "五脏：民以食为天"
-    difficulty: "Simple"
+    difficulty: "简单"
     challenges: 113
     completions: 2
     button_text: "立即挑战"
 
   - name: "大河之谜"
-    difficulty: "Simple"
+    difficulty: "简单"
     challenges: 137
     completions: 5
     button_text: "立即挑战"
 
   - name: "六耳：简易囚徒生死局"
-    difficulty: "Simple"
+    difficulty: "简单"
     challenges: 184
     completions: 4
     button_text: "立即挑战"
 
   - name: "音乐会上的阴谋"
-    difficulty: "Medium"
+    difficulty: "中等"
     challenges: 56
     completions: 5
     button_text: "立即挑战"

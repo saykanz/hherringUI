@@ -6,3 +6,5 @@ reports/
 .pytest_cache/
 allure-results/
 playwright/.cache/
+trace.zip
+.github/workflows/ci.yaml

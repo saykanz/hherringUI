@@ -1,6 +1,6 @@
 import pytest
-import allure
 import os
+import allure
 from playwright.sync_api import sync_playwright
 from config.settings import BROWSER, HEADLESS, TIMEOUT, BASE_URL
 from utils.logger import logger
@@ -21,7 +21,7 @@ Headless={HEADLESS}
 Base_URL={BASE_URL}
 Python=3.11+
 Playwright_Version=1.51.0
-Tester=你自己的名字或 saykanz
+Tester= saykanz
 Run_Time={datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 """
     try:
@@ -33,25 +33,51 @@ Run_Time={datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         logger.warning(f"生成 Allure 环境文件失败: {e}")
 
 
+
+# ====================== 失败时自动截图并附加到allure中 ======================
+@pytest.hookimpl(tryfirst=True,hookwrapper=True)
+def pytest_runtest_makereport(item,call):
+    """pytest 核心钩子：测试执行后判断是否失败，失败时自动截图并附加到allure"""
+    outcome = yield
+    rep = outcome.get_result()
+    #旨在call阶段（测试主体执行）且失败时处理
+    if rep.when == "call" and rep.failed:
+        try:
+            # 从item中获取page fixture
+            page = item.funcargs.get("page")
+            if page:
+                screenshot_bytes = page.screenshot()
+                allure.attach(
+                    screenshot_bytes,
+                    name = f"失败截图_{item.name}",
+                    attachment_type = allure.attachment_type.PNG
+                )
+                logger.info(f"失败自动截图已附加到 Allure:{item.name}")
+        except Exception as e:
+            logger.warning(f"自动附件失败截图失败：{e}")
+
 # ====================== Fixtures ======================
 @pytest.fixture(scope="session")
 def browser():
     with sync_playwright() as p:
         browser_type = getattr(p, BROWSER)
-        browser = browser_type.launch(headless=HEADLESS)
+        browser = browser_type.launch(headless=True)
         yield browser
         browser.close()
 
 
 @pytest.fixture(scope="function")
 def page(browser):
-    context = browser.new_context(
-        viewport={"width": 1920, "height": 1080},
-        locale="zh-CN"
+    context = browser.new_context()
+    context.tracing.start(
+        screenshots=True,
+        snapshots=True,
+        sources=True
     )
     page_obj = context.new_page()
     page_obj.set_default_timeout(TIMEOUT)
     yield page_obj
+    context.tracing.stop(path="trace.zip")
     context.close()
 
 

@@ -17,11 +17,6 @@ class BasePage:
         with allure.step(f"导航到页面: {full_url}"):
             self.page.goto(full_url, wait_until="networkidle")
             self.logger.info(f"Navigate to {full_url}")
-            allure.attach(
-                self.page.screenshot(type='png'),
-                name="导航后截图",
-                attachment_type=allure.attachment_type.PNG
-            )
 
     def get_by_text(self, text: str, exact: bool = True) -> Locator:
         return self.page.get_by_text(text, exact=exact)
@@ -33,7 +28,7 @@ class BasePage:
         filename = f"{screenshot_dir}/{name}_{datetime.now().strftime('%H%M%S')}.png"
 
         self.page.screenshot(path=filename)
-        self.logger.info(f"截图已保存: {filename}")
+        self.logger.info(f"手动截图已保存: {filename}")
 
         # 自动附加到 Allure（即使测试通过也可看到）
         with open(filename, "rb") as f:

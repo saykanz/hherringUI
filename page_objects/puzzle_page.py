@@ -12,7 +12,8 @@ class PuzzlePage(BasePage):
 
     def get_puzzle_card(self, puzzle_name: str):
         """根据谜题名称定位卡片"""
-        return self.page.get_by_text(puzzle_name).locator("..")
+        return self.page.locator(".puzzle-card").filter(has_text=puzzle_name)
+
 
     @allure.step("点击『立即挑战』按钮 - {puzzle_name}")
     def click_challenge_button(self, puzzle_name: str):

@@ -1,12 +1,13 @@
 from .base_page import BasePage
 from utils.logger import logger
+import re
 
 class ArticlePage(BasePage):
     def __init__(self, page):
         super().__init__(page)
 
     def click_view_more_articles(self):
-        self.get_by_text("查看更多", exact=True).click()
+        self.page.locator("div").filter(has_text=re.compile(r"^📖 精选文章查看更多$")).get_by_role("button").click()
         logger.info("Clicked '查看更多' in articles section")
         self.screenshot("articles_more")
 
@@ -17,3 +18,7 @@ class ArticlePage(BasePage):
             read_btn.click()
             logger.info(f"Clicked '阅读全文' for: {article_title}")
             self.screenshot(f"article_{article_title[:10]}")
+
+    def load_home(self):
+        # 加载首页
+        self.navigate()
