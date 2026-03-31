@@ -1,22 +1,26 @@
 import pytest
 import yaml
 from pathlib import Path
-from utils.logger import logger
+import allure
 
 DATA_PATH = Path("data/test_data.yaml")
 with open(DATA_PATH, encoding="utf-8") as f:
     TEST_DATA = yaml.safe_load(f)
 
-@pytest.mark.regression
+@allure.feature("文章模块")
+@allure.story("文章查看更多")
+@allure.title("测试文章区『查看更多』功能")
 def test_view_more_articles(article_page):
-    """测试文章区 '查看更多' 功能"""
-    article_page.load_home()  # 或直接 navigate 到首页
-    article_page.click_view_more_articles()
-    # 可添加断言：检查 URL 变化或新内容出现
-
-@pytest.mark.parametrize("article", TEST_DATA["articles"])
-def test_read_full_article(article_page, article):
-    """数据驱动：点击具体文章的 '阅读全文'"""
     article_page.load_home()
-    article_page.click_read_full(article["title"])
-    logger.info(f"Tested read full for article: {article['title']}")
+    with allure.step("点击查看更多"):
+        article_page.click_view_more_articles()
+
+
+@allure.feature("文章模块")
+@allure.story("阅读全文")
+@pytest.mark.parametrize("article", TEST_DATA["articles"])
+@allure.title("点击阅读全文 - {article[title]}")
+def test_read_full_article(article_page, article):
+    article_page.load_home()
+    with allure.step(f"点击文章 '{article['title']}' 的阅读全文"):
+        article_page.click_read_full(article["title"])

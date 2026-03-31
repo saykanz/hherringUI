@@ -6,7 +6,8 @@
 ```bash
 pip install -r requirements.txt
 playwright install
-pytest -n auto --alluredir=allure-results
+# 清空旧结果并运行（推荐）
+python -m pytest -n auto --alluredir=allure-results --clean-alluredir -q 
 allure serve allure-results
 
 ##完整企业级目录
