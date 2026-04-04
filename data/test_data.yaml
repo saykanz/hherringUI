@@ -37,3 +37,59 @@ articles:
   - title: "福尔摩斯推理法在现实中的应用"
     author: "红鲱鱼"
     action: "阅读全文"
+
+latests:
+  - tab: "最新谜题"
+    name: "看图推‘树’1"
+    difficulty: "简单"
+    challenges: 278
+    completions: 3
+    button_text: "立即挑战"
+
+  - tab: "最新谜题"
+    name: "五脏：民以食为天"
+    difficulty: "简单"
+    challenges: 113
+    completions: 2
+    button_text: "立即挑战"
+
+  - tab: "最新谜题"
+    name: "大河之谜"
+    difficulty: "简单"
+    challenges: 137
+    completions: 5
+    button_text: "立即挑战"
+
+  - tab: "最新谜题"
+    title: "刑事侦查学常识-死亡"
+    author: "星辰大海"
+    action: "阅读全文"
+
+  - tab: "最新谜题"
+    title: "福尔摩斯推理法在现实中的应用"
+    author: "红鲱鱼"
+    action: "阅读全文"
+
+
+viewports:
+  - name: "Desk_FullHD"
+    viewport:
+      width: 1920
+      height: 1080
+
+  - name: "Desktop_1366x768"
+    viewport:
+      width: 1366
+      height: 768
+
+  - name: "Tablet_iPad"
+    viewport: 'devices["iPad Pro 11"]["viewport"]'
+
+  - name: "Mobile_iPhone14"
+    viewport: 'devices["iPhone 14"]["viewport"]'
+
+  - name: "Mobile_Small"
+    viewport:
+      width: 375
+      height: 667
+

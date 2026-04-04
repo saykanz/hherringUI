@@ -14,3 +14,4 @@ class HomePage(BasePage):
 
     def click_puzzle_challenge(self):
         self.page.get_by_text("立即挑战", exact=True).first.click()
+

@@ -6,7 +6,6 @@ from config.settings import BROWSER, HEADLESS, TIMEOUT, BASE_URL
 from utils.logger import logger
 from datetime import datetime
 
-
 # ====================== Allure 环境信息自动生成 ======================
 def pytest_sessionfinish(session, exitstatus):
     """测试会话结束时，自动生成 environment.properties，让 Allure 概览页显示环境信息"""
@@ -17,13 +16,13 @@ def pytest_sessionfinish(session, exitstatus):
     env_file = os.path.join(report_dir, 'environment.properties')
 
     env_content = f"""Browser={BROWSER}
-Headless={HEADLESS}
-Base_URL={BASE_URL}
-Python=3.11+
-Playwright_Version=1.51.0
-Tester= saykanz
-Run_Time={datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-"""
+        Headless={HEADLESS}
+        Base_URL={BASE_URL}
+        Python=3.11+
+        Playwright_Version=1.51.0
+        Tester= saykanz
+        Run_Time={datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+        """
     try:
         os.makedirs(report_dir, exist_ok=True)
         with open(env_file, 'w', encoding='utf-8') as f:
@@ -97,3 +96,28 @@ def puzzle_page(page):
 def article_page(page):
     from page_objects.article_page import ArticlePage
     return ArticlePage(page)
+
+@pytest.fixture(scope="function")
+def latest_content(page):
+    from page_objects.latest_content_page import LatestContent
+    return LatestContent(page)
+
+# ==================== 2. 响应式设计 + 分辨率适配 ====================
+with sync_playwright() as p:
+    devices = p.devices
+
+    viewports = [
+    {"name": "Desktop_FullHD", "viewport": {"width": 1920, "height": 1080}},
+    {"name": "Desktop_1366x768", "viewport": {"width": 1366, "height": 768}},
+    {"name": "Tablet_iPad", "viewport": devices["iPad Pro 11"]["viewport"]},
+    {"name": "Mobile_iPhone14", "viewport": devices["iPhone 14"]["viewport"]},
+    {"name": "Mobile_Small", "viewport": {"width": 375, "height": 667}},
+]
+
+@pytest.fixture(params=viewports,ids=lambda x: f"viewport_{x}")
+def responsive_page(page,request):
+    viewport_config = request.param["viewport"]
+    page.set_viewport_size(viewport_config)
+    with allure.step(f"切换视口：{request.param['name']}({viewport_config})"):
+        yield page
+

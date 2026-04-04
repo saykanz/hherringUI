@@ -19,7 +19,7 @@ class PuzzlePage(BasePage):
     def click_challenge_button(self, puzzle_name: str):
         """点击立即挑战按钮"""
         card = self.get_puzzle_card(puzzle_name)
-        button = card.get_by_text("立即挑战", exact=True)
+        button = card.get_by_text("立即挑战").first
         if button.is_visible():
             button.click()
             logger.info(f"Clicked '立即挑战' for puzzle: {puzzle_name}")
